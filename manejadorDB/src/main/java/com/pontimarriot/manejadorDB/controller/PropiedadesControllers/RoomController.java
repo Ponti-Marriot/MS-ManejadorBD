@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rooms")
+@RequestMapping("/db/reservas/rooms")
 public class RoomController {
 
     @Autowired

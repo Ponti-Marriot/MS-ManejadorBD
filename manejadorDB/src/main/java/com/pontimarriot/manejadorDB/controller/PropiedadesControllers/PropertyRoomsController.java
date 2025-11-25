@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/property-rooms")
+@RequestMapping("/db/reservas/property-rooms")
 public class PropertyRoomsController {
 
     @Autowired

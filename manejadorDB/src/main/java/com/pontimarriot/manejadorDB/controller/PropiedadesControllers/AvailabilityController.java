@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/available-rooms")
+@RequestMapping("/db/reservas/available-rooms")
 public class AvailabilityController {
 
     @Autowired
