@@ -48,7 +48,7 @@ public class AvailabilityService {
         int numAdultos = availabilityQueryDTO.num_adultos();
         int numHabitacionesRequested = availabilityQueryDTO.num_habitaciones();
 
-        String expectedRoomType = mapRoomTypeForAdults(numAdultos);
+        String expectedRoomType = mapRoomTypeForAdults(numAdultos, numHabitacionesRequested);
 
         for (HotelProperty hp : properties) {
             UUID locId = hp.getLocationId();
@@ -184,9 +184,11 @@ public class AvailabilityService {
         return response;
     }
 
-    private String mapRoomTypeForAdults(int numAdultos) {
-        if (numAdultos <= 1) return "simple";
-        if (numAdultos == 2) return "doble";
+    private String mapRoomTypeForAdults(int numAdultos, int numHabitacionesRequested) {
+        int rooms = Math.max(1, numHabitacionesRequested); // avoid division by zero
+        int adultsPerRoom = numAdultos / rooms; // floor division
+        if (adultsPerRoom <= 1) return "simple";
+        if (adultsPerRoom == 2) return "doble";
         return "familiar";
     }
 }
