@@ -1,0 +1,10 @@
+package com.pontimarriot.manejadorDB.repository;
+
+import com.pontimarriot.manejadorDB.model.Propiedades.Entities.Location;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LocationJpaRepository extends JpaRepository<Location, UUID> {
+}

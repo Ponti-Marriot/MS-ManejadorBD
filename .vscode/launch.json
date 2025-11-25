@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ManejadorDbApplication<manejadorDB>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pontimarriot.manejadorDB.ManejadorDbApplication",
+            "projectName": "manejadorDB",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

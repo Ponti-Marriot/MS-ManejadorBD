@@ -6,4 +6,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/db/propiedades")
 public class PropiedadesController {
+
+    
 }
