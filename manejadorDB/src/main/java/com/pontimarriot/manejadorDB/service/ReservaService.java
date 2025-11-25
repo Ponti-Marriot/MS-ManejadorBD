@@ -33,18 +33,18 @@ public class ReservaService {
     @Transactional
     public List<ReservaResponse> guardarReserva(ReservaRequest req) {
 
-        validarFechas(req.getCheck_in(), req.getCheck_out());
+        validarFechas(req.getFecha_checkin(), req.getFecha_checkout());
 
         List<Room> roomsDisponibles = obtenerHabitacionesDisponibles(
-                req.getRoom_type(),
-                req.getCheck_in(),
-                req.getCheck_out(),
-                req.getRoom_number()
+                req.getCodigo_tipo_habitacion(),
+                req.getFecha_checkin(),
+                req.getFecha_checkout(),
+                req.getNum_habitaciones()
         );
 
         List<Reserva> reservasCreadas = new ArrayList<>();
 
-        for (int i = 0; i < req.getRoom_number(); i++) {
+        for (int i = 0; i < req.getNum_habitaciones(); i++) {
             Room room = roomsDisponibles.get(i);
             Reserva reserva = crearReserva(req, room);
             reservasCreadas.add(reserva);
@@ -91,16 +91,16 @@ public class ReservaService {
 
     private Reserva crearReserva(ReservaRequest req, Room room) {
         Reserva reserva = new Reserva();
-        reserva.setGuestID(req.getDocument());
-        reserva.setHotelID(req.getHotel_id());
+        reserva.setGuestID(req.getCedula_reserva());
+        reserva.setHotelID(req.getId_hotel());
         reserva.setRoomId(room.getId());
-        reserva.setCheckIn(req.getCheck_in());
-        reserva.setCheckOut(req.getCheck_out());
+        reserva.setCheckIn(req.getFecha_checkin());
+        reserva.setCheckOut(req.getFecha_checkout());
         reserva.setStatus("PENDIENTE");
         reserva.setCurrency("COP");
 
         // Calcular el precio total
-        BigDecimal precioTotal = calcularPrecioTotal(req.getHotel_id(), room.getId(), req.getCheck_in(), req.getCheck_out());
+        BigDecimal precioTotal = calcularPrecioTotal(req.getId_hotel(), room.getId(), req.getFecha_checkin(), req.getFecha_checkout());
         reserva.setPrice(precioTotal);
 
         return reserva;

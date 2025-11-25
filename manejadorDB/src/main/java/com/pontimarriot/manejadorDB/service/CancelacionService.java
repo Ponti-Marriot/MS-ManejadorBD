@@ -24,9 +24,9 @@ public class CancelacionService {
         validarRequest(request);
 
         // 2️⃣ Buscar la reserva
-        Reserva reserva = reservaRepository.findById(request.getReservation_id())
+        Reserva reserva = reservaRepository.findById(request.getId_reserva())
                 .orElseThrow(() -> new RuntimeException(
-                        "No se encontró la reserva con ID: " + request.getReservation_id()
+                        "No se encontró la reserva con ID: " + request.getId_reserva()
                 ));
 
 
@@ -47,25 +47,25 @@ public class CancelacionService {
     }
 
     private void validarRequest(CancelacionRequest request) {
-        if (request.getReservation_id() == null) {
+        if (request.getId_reserva() == null) {
             throw new IllegalArgumentException("El ID de reserva es obligatorio");
         }
-        if (request.getTransaction_id() == null) {
+        if (request.getId_transaccion() == null) {
             throw new IllegalArgumentException("El ID de transacción es obligatorio");
         }
-        if (request.getDocument_id() == null || request.getDocument_id().trim().isEmpty()) {
+        if (request.getCedula_reserva() == null || request.getCedula_reserva().trim().isEmpty()) {
             throw new IllegalArgumentException("El documento es obligatorio");
         }
-        if (request.getOrigin() == null || request.getOrigin().trim().isEmpty()) {
+        if (request.getOrigen_solicitud() == null || request.getOrigen_solicitud().trim().isEmpty()) {
             throw new IllegalArgumentException("El origen es obligatorio");
         }
-        if (!"CLIENTE".equalsIgnoreCase(request.getOrigin()) &&
-                !"HOTEL".equalsIgnoreCase(request.getOrigin())) {
+        if (!"CLIENTE".equalsIgnoreCase(request.getOrigen_solicitud()) &&
+                !"HOTEL".equalsIgnoreCase(request.getOrigen_solicitud())) {
             throw new IllegalArgumentException(
-                    "El origen debe ser 'CLIENTE' o 'HOTEL'. Recibido: " + request.getOrigin()
+                    "El origen debe ser 'CLIENTE' o 'HOTEL'. Recibido: " + request.getOrigen_solicitud()
             );
         }
-        if (request.getCauses() == null || request.getCauses().trim().isEmpty()) {
+        if (request.getMotivo() == null || request.getMotivo().trim().isEmpty()) {
             throw new IllegalArgumentException("El motivo de cancelación es obligatorio");
         }
     }

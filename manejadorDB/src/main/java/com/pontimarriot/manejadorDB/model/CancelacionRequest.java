@@ -6,10 +6,10 @@ import java.util.UUID;
 
 @Data
 public class CancelacionRequest {
-    UUID reservation_id;
-    UUID transaction_id;
-    String document_id;
-    String origin;
-    String causes;
-    String observations;
+    UUID id_reserva;
+    UUID id_transaccion;
+    String cedula_reserva;
+    String origen_solicitud;
+    String motivo;
+    String observaciones;
 }

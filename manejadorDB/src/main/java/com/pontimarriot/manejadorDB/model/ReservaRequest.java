@@ -7,11 +7,11 @@ import java.util.Date;
 
 @Data
 public class ReservaRequest {
-    UUID hotel_id;
-    String room_type;
-    Date check_in;
-    Date check_out;
-    String document;
-    Integer room_number;
-    Integer adults_number;
+    UUID id_hotel;
+    String codigo_tipo_habitacion;
+    Date fecha_checkin;
+    Date fecha_checkout;
+    String cedula_reserva;
+    Integer num_habitaciones;
+    Integer num_adultos;
 }
