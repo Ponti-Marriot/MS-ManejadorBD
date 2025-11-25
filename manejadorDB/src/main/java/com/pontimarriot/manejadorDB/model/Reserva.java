@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
-
 @Entity
 @Table(name = "reservations")
 @Data
@@ -18,16 +17,30 @@ import java.util.UUID;
 public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(nullable = false)
-    UUID reservationID;
+    @Column(name = "id", nullable = false)
+    private UUID id;
+
     @Column(name = "guestid")
-    String guestID;
-    UUID HotelID;
-    UUID roomId;
-    Date checkIn;
-    Date checkOut;
+    private String guestID;
+
+    @Column(name = "hotel_id")
+    private UUID hotelId;
+
+    @Column(name = "room_id")
+    private UUID roomId;
+
+    @Column(name = "check_in")
+    private Date checkIn;
+
+    @Column(name = "check_out")
+    private Date checkOut;
+
     @Column(name = "total_price")
-    BigDecimal price;
-    String status;
-    String currency;
+    private BigDecimal price;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "currency")
+    private String currency;
 }

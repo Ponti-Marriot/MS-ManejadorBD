@@ -43,7 +43,7 @@ public class DeliberacionService {
 
         // 6️⃣ Crear y retornar la respuesta
         return new DeliberacionResponse(
-                reservaActualizada.getReservationID(),
+                reservaActualizada.getId(),
                 convertirEstadoRespuesta(reservaActualizada.getStatus())
         );
     }

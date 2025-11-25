@@ -39,7 +39,7 @@ public class CancelacionService {
 
         // 7️⃣ Crear y retornar la respuesta
         return new CancelacionResponse(
-                reservaActualizada.getReservationID(),
+                reservaActualizada.getId(),
                 estadoResultante,
                 LocalDateTime.now(),
                 "Su reserva ha sido cancelada"

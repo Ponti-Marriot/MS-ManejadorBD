@@ -12,11 +12,14 @@ import java.util.UUID;
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, UUID> {
 
-    // Buscar reservas que se crucen con un rango de fechas
     List<Reserva> findByRoomIdAndCheckInLessThanEqualAndCheckOutGreaterThanEqual(
             UUID roomId, Date checkIn, Date checkOut
     );
 
     @Override
     Optional<Reserva> findById(UUID uuid);
+
+    List<Reserva> findByHotelId(UUID hotelId);  // Cambiar de findByHotelID a findByHotelId
+
+    List<Reserva> findByRoomId(UUID roomId);
 }

@@ -92,7 +92,7 @@ public class ReservaService {
     private Reserva crearReserva(ReservaRequest req, Room room) {
         Reserva reserva = new Reserva();
         reserva.setGuestID(req.getCedula_reserva());
-        reserva.setHotelID(req.getId_hotel());
+        reserva.setHotelId(req.getId_hotel());
         reserva.setRoomId(room.getId());
         reserva.setCheckIn(req.getFecha_checkin());
         reserva.setCheckOut(req.getFecha_checkout());
@@ -128,7 +128,7 @@ public class ReservaService {
 
     private ReservaResponse convertirAResponse(Reserva reserva) {
         ReservaResponse response = new ReservaResponse();
-        response.setId_reserva(reserva.getReservationID());
+        response.setId_reserva(reserva.getId());
         response.setPrecio_total(reserva.getPrice());
         response.setEstado(reserva.getStatus());
         response.setObservaciones(null); // Por defecto null ya que no es obligatorio
