@@ -2,7 +2,7 @@ package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.AvailabilityDates;
+import com.pontimarriot.manejadorDB.model.AvailabilityDates;
 import com.pontimarriot.manejadorDB.repository.AvailabilityDatesRepository;
 
 

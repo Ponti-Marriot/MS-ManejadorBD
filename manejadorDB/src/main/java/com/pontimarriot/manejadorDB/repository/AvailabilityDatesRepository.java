@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.AvailabilityDates;
+import com.pontimarriot.manejadorDB.model.AvailabilityDates;
 
 @Repository
 public interface AvailabilityDatesRepository extends JpaRepository<AvailabilityDates, UUID> {

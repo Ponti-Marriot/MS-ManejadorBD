@@ -1,4 +1,4 @@
-package com.pontimarriot.manejadorDB.model.Propiedades.Entities;
+package com.pontimarriot.manejadorDB.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

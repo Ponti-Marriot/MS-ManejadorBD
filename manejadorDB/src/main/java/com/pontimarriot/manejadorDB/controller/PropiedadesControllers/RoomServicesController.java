@@ -1,6 +1,6 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.RoomServices;
+import com.pontimarriot.manejadorDB.model.RoomServices;
 import com.pontimarriot.manejadorDB.repository.RoomServicesJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

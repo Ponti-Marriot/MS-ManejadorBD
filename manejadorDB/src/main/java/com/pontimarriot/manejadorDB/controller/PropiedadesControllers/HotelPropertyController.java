@@ -3,7 +3,7 @@ package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.HotelProperty;
+import com.pontimarriot.manejadorDB.model.HotelProperty;
 import com.pontimarriot.manejadorDB.repository.HotelPropertyRepository;
 
 import java.util.List;

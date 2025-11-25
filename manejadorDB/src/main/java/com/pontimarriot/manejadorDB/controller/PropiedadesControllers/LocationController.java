@@ -1,6 +1,6 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.Location;
+import com.pontimarriot.manejadorDB.model.Location;
 import com.pontimarriot.manejadorDB.repository.LocationJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

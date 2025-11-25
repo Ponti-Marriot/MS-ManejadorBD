@@ -1,6 +1,6 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.Service;
+import com.pontimarriot.manejadorDB.model.Service;
 import com.pontimarriot.manejadorDB.repository.ServiceJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

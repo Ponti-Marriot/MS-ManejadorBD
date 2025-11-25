@@ -1,6 +1,6 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.HotelPropertyRoom;
+import com.pontimarriot.manejadorDB.model.HotelPropertyRoom;
 import com.pontimarriot.manejadorDB.repository.HotelPropertyRoomRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

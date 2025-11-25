@@ -1,6 +1,6 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.Room;
+import com.pontimarriot.manejadorDB.model.Room;
 import com.pontimarriot.manejadorDB.repository.RoomJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +35,12 @@ public class RoomController {
         Room saved = repository.save(room);
         return ResponseEntity.ok(saved);
     }
-
+/*
     @GetMapping("/by-availability/{availabilityDatesId}")
     public ResponseEntity<List<Room>> findByAvailabilityDatesId(@PathVariable UUID availabilityDatesId) {
         List<Room> rooms = repository.findByAvailabilityDatesId(availabilityDatesId);
         return ResponseEntity.ok(rooms);
     }
+
+ */
 }

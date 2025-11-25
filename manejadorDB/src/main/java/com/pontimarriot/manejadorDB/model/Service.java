@@ -1,4 +1,4 @@
-package com.pontimarriot.manejadorDB.model.Propiedades.Entities;
+package com.pontimarriot.manejadorDB.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,18 +11,20 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-public class Status {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    private String createdAt;
+    private String category;
+    private String description;
 
-    public Status() {
+    public Service() {
     }
 
-    public Status(String name, String createdAt) {
+    public Service(String name, String category, String description) {
         this.name = name;
-        this.createdAt = createdAt;
+        this.category = category;
+        this.description = description;
     }
 }

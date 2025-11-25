@@ -1,6 +1,6 @@
 package com.pontimarriot.manejadorDB.repository;
 
-import com.pontimarriot.manejadorDB.model.Propiedades.Entities.Location;
+import com.pontimarriot.manejadorDB.model.Location;
 
 import java.util.UUID;
 
