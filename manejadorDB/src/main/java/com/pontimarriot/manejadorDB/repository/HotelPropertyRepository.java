@@ -12,7 +12,4 @@ import com.pontimarriot.manejadorDB.model.HotelProperty;
 public interface HotelPropertyRepository extends JpaRepository<HotelProperty, UUID> {
         // Para /location/{locationId}
     List<HotelProperty> findByLocationId(UUID locationId);
-
-    // Para /availability/{availabilityDatesId}
-    List<HotelProperty> findByAvailabilityDatesId(UUID availabilityDatesId);
 }

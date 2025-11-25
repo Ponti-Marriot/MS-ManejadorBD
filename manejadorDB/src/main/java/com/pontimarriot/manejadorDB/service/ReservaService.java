@@ -112,7 +112,7 @@ public class ReservaService {
                 .findByHotelPropertyIdAndRoomId(hotelId, roomId)
                 .orElseThrow(() -> new RuntimeException("No se encontró precio para esta habitación en el hotel"));
 
-        BigDecimal precioPorNoche = hotelRoom.getPricePerNight();
+        BigDecimal precioPorNoche = BigDecimal.valueOf(hotelRoom.getPricePerNight());
 
         // Calcular número de noches
         long diferenciaMilis = checkOut.getTime() - checkIn.getTime();

@@ -1,37 +1,39 @@
 package com.pontimarriot.manejadorDB.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "hotelpropertiesrooms")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class HotelPropertyRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @Column(name = "hotelProperty_id")
+    @Column(name = "hotel_property_id")
     private UUID hotelPropertyId;
-
     @Column(name = "room_id")
     private UUID roomId;
-
-    private Integer bedrooms;
-
-    private Integer bathrooms;
-
+    @Column(name = "bedrooms")
+    private int bedrooms;
+    @Column(name = "bathrooms")
+    private int bathrooms;
     @Column(name = "price_per_night")
-    private BigDecimal pricePerNight;
+    private double pricePerNight;
 
-    @Column(name = "hotelpropertiesrooms_id")
-    private UUID hotelpropertiesroomsId;
+    public HotelPropertyRoom() {
+    }
+
+    public HotelPropertyRoom(UUID hotelPropertyId, UUID roomId, int bedrooms, int bathrooms, double pricePerNight) {
+        this.hotelPropertyId = hotelPropertyId;
+        this.roomId = roomId;
+        this.bedrooms = bedrooms;
+        this.bathrooms = bathrooms;
+        this.pricePerNight = pricePerNight;
+    }
 }

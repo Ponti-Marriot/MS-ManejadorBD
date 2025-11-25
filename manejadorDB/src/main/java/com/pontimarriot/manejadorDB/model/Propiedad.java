@@ -5,30 +5,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "workers")
+@Table(name = "hotelproperties")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Propiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false)
-    UUID id;
-    String name;
-    String description;
-    int squareMeters;
-    int stars;
-    String property_type;
-    UUID location_id;
-    String address;
-    UUID availability_dates_id;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
-    List<String> photosUrls;
-
+    private UUID id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "description")
+    private int stars;
+    @Column(name = "property_type")
+    private String propertyType;
+    @Column(name = "location_id")
+    private UUID locationId;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "images_id")
+    private UUID imagesId;
 }

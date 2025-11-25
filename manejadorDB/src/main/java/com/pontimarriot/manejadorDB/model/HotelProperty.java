@@ -4,47 +4,38 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "hotelproperties")
 public class HotelProperty {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(name = "name")
     private String name;
-    private String description;
-    private int squareMeters;
+    @Column(name = "stars")
     private int stars;
+    @Column(name = "property_type")
     private String propertyType;
+    @Column(name = "location_id")
     private UUID locationId;
+    @Column(name = "address")
     private String address;
-    private UUID availabilityDatesId;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private List<String> photosUrls;
+    @Column(name = "images_id")
+    private UUID imagesId;
 
     public HotelProperty(){
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        photosUrls = new ArrayList<>();
     }
 
-    public HotelProperty(String name, String description, int squareMeters, int stars, String propertyType, UUID locationId, String address, UUID availabilityDatesId, List<String> photosUrls) {
+    public HotelProperty(String name, int stars, String propertyType, UUID locationId, String address, UUID imagesId) {
         this.name = name;
-        this.description = description;
-        this.squareMeters = squareMeters;
         this.stars = stars;
         this.propertyType = propertyType;
         this.locationId = locationId;
         this.address = address;
-        this.availabilityDatesId = availabilityDatesId;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        this.photosUrls = photosUrls;
+        this.imagesId = imagesId;
     }
 }

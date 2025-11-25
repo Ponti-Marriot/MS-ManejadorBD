@@ -11,5 +11,5 @@ import com.pontimarriot.manejadorDB.model.AvailabilityDates;
 @Repository
 public interface AvailabilityDatesRepository extends JpaRepository<AvailabilityDates, UUID> {
         // Método que usas en tu controller
-    List<AvailabilityDates> findByRoomId(UUID roomId);
+    List<AvailabilityDates> findByHotelpropertiesroomsId(UUID hotelPropertyRoomId);
 }
