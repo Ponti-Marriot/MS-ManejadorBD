@@ -30,7 +30,7 @@ public class PaymentsService {
 
     // Get payments by reservation
     public List<Payment> getPaymentsByReservation(UUID reservationId) {
-        return paymentRepository.findByReservationId(reservationId);
+        return paymentRepository.findByReservation_Id(reservationId);
     }
 
     // Create new payment
@@ -67,7 +67,7 @@ public class PaymentsService {
 
     // Calculate total amount by reservation
     public BigDecimal getTotalAmountByReservation(UUID reservationId) {
-        List<Payment> payments = paymentRepository.findByReservationId(reservationId);
+        List<Payment> payments = paymentRepository.findByReservation_Id(reservationId);
         return payments.stream()
                 .map(Payment::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

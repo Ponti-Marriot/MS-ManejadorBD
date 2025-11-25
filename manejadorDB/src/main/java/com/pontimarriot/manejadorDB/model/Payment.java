@@ -24,10 +24,9 @@ public class Payment {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "reservation_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Reserva reservation;
 
     @NotNull
