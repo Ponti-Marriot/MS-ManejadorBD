@@ -1,11 +1,11 @@
-@base_url = http://localhost:8088/available-rooms
+@base_url = http://localhost:8088/db/reservas/available-rooms
 
 ###
 GET {{base_url}}
 Content-Type: application/json
 
 {
-  "ciudad_destino": "Madrid",
+  "ciudad_destino": "Medellín",
   "fecha_checkin": "2025-12-01",
   "fecha_checkout": "2025-12-05",
   "num_adultos": 2,

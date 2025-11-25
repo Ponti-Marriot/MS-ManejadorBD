@@ -125,7 +125,7 @@ public class AvailabilityService {
                     })
                     .collect(Collectors.toList());
 
-            if (matchingHotelRooms.size() > numHabitacionesRequested) {
+            if (matchingHotelRooms.size() >= numHabitacionesRequested) {
                 for (HotelPropertyRoom hpr : matchingHotelRooms) {
                     Optional<Room> roomOpt = roomRepository.findById(hpr.getRoomId());
                     if (roomOpt.isEmpty()) continue;
@@ -169,6 +169,11 @@ public class AvailabilityService {
 
                     habitaciones.add(roomDto);
                 }
+            }
+
+            // Final fix: only add the hotel if at least one room passed all conditions
+            if (habitaciones.isEmpty()) {
+                continue;
             }
 
             dto.setHabitaciones(habitaciones);
