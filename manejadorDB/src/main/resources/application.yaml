@@ -3,4 +3,4 @@ spring:
     name: manejadorDb
   config:
     # Config server url
-    import: configserver:http://localhost:8083
+    import: configserver:http://10.43.103.234:8083
