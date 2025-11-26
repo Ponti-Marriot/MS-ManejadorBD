@@ -1,0 +1,38 @@
+@base_url = http://localhost:8088/db/reservas
+
+###
+POST {{base_url}}
+Content-Type: application/json
+
+{
+  "id_hotel": "2725c068-4383-4f50-8494-fdc5fdfab7ac",
+  "codigo_tipo_habitacion": "doble",
+  "fecha_checkin": "2025-12-01",
+  "fecha_checkout": "2025-12-05",
+  "cedula_reserva": "1234567890",
+  "num_habitaciones": "1",
+  "num_adultos": "2"
+}
+
+###
+PUT {{base_url}}/deliberacion
+Content-Type: application/json
+
+{
+	"id_reserva":"34164396-1394-4536-83e0-35adc26f4b99",
+	"id_transaccion":"b4f6c3a2-5f29-4f78-8c3e-9a8b6c12f4d2",
+	"estado":"CONFIRMADO"
+}
+
+###
+PUT {{base_url}}/cancelacion
+Content-Type: application/json
+
+{
+  "id_reserva":"34164396-1394-4536-83e0-35adc26f4b99",
+  "id_transaccion":"b4f6c3a2-5f29-4f78-8c3e-9a8b6c12f4d2",
+  "cedula_reserva":"1234567890",
+  "origen_solicitud":"HOTEL",
+  "motivo":"Cambio de planes",
+  "observaciones":"perdon"
+}

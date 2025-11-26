@@ -1,0 +1,11 @@
+@base_url = http://localhost:8088/db/reservas/rooms
+
+### Create a room (POST)
+POST {{base_url}}
+Content-Type: application/json
+
+{
+  "title": "Habitación Simple",
+  "description": "Cama individual, baño privado",
+  "room_type": "simple"
+}

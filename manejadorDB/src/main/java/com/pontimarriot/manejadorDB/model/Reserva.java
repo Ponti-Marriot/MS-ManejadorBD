@@ -20,7 +20,7 @@ public class Reserva {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "guestid")
+    @Column(name = "guest_id")
     private String guestID;
 
     @Column(name = "hotel_id")

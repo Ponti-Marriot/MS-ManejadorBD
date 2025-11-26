@@ -49,7 +49,6 @@ public class ReservaService {
             Reserva reserva = crearReserva(req, room);
             reservasCreadas.add(reserva);
         }
-
         // Guardar todas las reservas
         List<Reserva> reservasGuardadas = reservaRepository.saveAll(reservasCreadas);
 

@@ -1,0 +1,14 @@
+@base_url = http://localhost:8088/db/reservas/properties
+
+###
+POST {{base_url}}
+Content-Type: application/json
+
+{
+  "name": "Ponti Marriott El Cairo",
+  "stars": 4,
+  "property_type": "Hotel",
+  "location_id": "5f2664a7-6ce4-4a69-98da-d6e132fde67d",
+  "address": "Calle Falsa 123",
+  "images_id": "6b92ba09-c2f8-481b-90fa-d5380e5cc3fa"
+}

@@ -1,0 +1,13 @@
+@base_url = http://localhost:8088/db/reservas/property-rooms
+
+###
+POST {{base_url}}
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1302708e-8ec8-4f13-9033-aeb77bd6d2e6",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 75.50
+}
