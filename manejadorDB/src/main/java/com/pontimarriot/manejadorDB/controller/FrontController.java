@@ -1,7 +1,14 @@
 package com.pontimarriot.manejadorDB.controller;
 
+import com.pontimarriot.manejadorDB.dtos.*;
 import com.pontimarriot.manejadorDB.model.*;
-import com.pontimarriot.manejadorDB.service.*;
+import com.pontimarriot.manejadorDB.repository.HotelPropertyRepository;
+import com.pontimarriot.manejadorDB.repository.LocationRepository;
+import com.pontimarriot.manejadorDB.service.RoomsService;
+import com.pontimarriot.manejadorDB.service.PaymentsService;
+import com.pontimarriot.manejadorDB.service.ReservationsService;
+import com.pontimarriot.manejadorDB.service.SettingsService;
+import com.pontimarriot.manejadorDB.service.ReportsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*") // Adjust allowed origins for your frontend
+@CrossOrigin(origins = "*") // permite llamadas desde http://localhost:4200
 public class FrontController {
 
     private final RoomsService roomsService;
@@ -19,72 +26,144 @@ public class FrontController {
     private final ReservationsService reservationsService;
     private final SettingsService settingsService;
     private final ReportsService reportsService;
+    private final HotelPropertyRepository hotelPropertyRepository;
+    private final LocationRepository locationRepository;
 
     public FrontController(RoomsService roomsService,
                            PaymentsService paymentsService,
                            ReservationsService reservationsService,
                            SettingsService settingsService,
-                           ReportsService reportsService) {
+                           ReportsService reportsService,
+                           HotelPropertyRepository hotelPropertyRepository,
+                           LocationRepository locationRepository) {
         this.roomsService = roomsService;
         this.paymentsService = paymentsService;
         this.reservationsService = reservationsService;
         this.settingsService = settingsService;
         this.reportsService = reportsService;
+        this.hotelPropertyRepository = hotelPropertyRepository;
+        this.locationRepository = locationRepository;
     }
 
-    // ==================== ROOMS ====================
+    // =========================================================
+    //                       LOCATIONS
+    // =========================================================
 
-    // GET /api/rooms
-    @GetMapping("/rooms")
-    public List<Room> getAllRooms() {
-        return roomsService.getAllRooms();
+    // GET /api/locations -> lista de regiones / ciudades
+    @GetMapping("/locations")
+    public List<LocationSimpleDTO> getAllLocations() {
+        return roomsService.getAllLocationsSimple();
     }
 
-    // GET /api/rooms/{roomId}
-    @GetMapping("/rooms/{roomId}")
-    public Room getRoomById(@PathVariable UUID roomId) {
-        return roomsService.getRoomById(roomId);
+    // GET /api/locations/{locationId}
+    @GetMapping("/locations/{locationId}")
+    public Location getLocationById(@PathVariable UUID locationId) {
+        return locationRepository.findById(locationId).orElse(null);
     }
 
-    // GET /api/hotels/{hotelPropertyId}/rooms
-    @GetMapping("/hotels/{hotelPropertyId}/rooms")
-    public List<Room> getRoomsByHotelProperty(@PathVariable UUID hotelPropertyId) {
-        return roomsService.getRoomsByHotelProperty(hotelPropertyId);
+    // GET /api/locations/{locationId}/hotels -> hoteles en esa location
+    @GetMapping("/locations/{locationId}/hotels")
+    public List<HotelProperty> getHotelsByLocation(@PathVariable UUID locationId) {
+        // Asegúrate de tener en HotelPropertyRepository:
+        // List<HotelProperty> findByLocationId(UUID locationId);
+        return hotelPropertyRepository.findByLocationId(locationId);
     }
 
-    // GET /api/rooms/{roomId}/services
-    @GetMapping("/rooms/{roomId}/services")
-    public List<Service> getServicesByRoom(@PathVariable UUID roomId) {
-        return roomsService.getServicesByRoom(roomId);
-    }
+    // =========================================================
+    //                       HOTELS
+    // =========================================================
 
-    // GET /api/rooms/{roomId}/availability
-    @GetMapping("/rooms/{roomId}/availability")
-    public List<AvailabilityDates> getAvailabilityByRoom(@PathVariable UUID roomId) {
-        return roomsService.getAvailabilityByRoom(roomId);
-    }
-
-    // GET /api/hotels
     @GetMapping("/hotels")
-    public List<HotelProperty> getAllHotelProperties() {
+    public List<HotelProperty> getAllHotels() {
         return roomsService.getAllHotelProperties();
     }
 
-    // GET /api/hotels/{hotelPropertyId}
     @GetMapping("/hotels/{hotelPropertyId}")
     public HotelProperty getHotelProperty(@PathVariable UUID hotelPropertyId) {
         return roomsService.getHotelPropertyById(hotelPropertyId);
     }
 
-    // ==================== PAYMENTS ====================
+    // =========================================================
+    //                       ROOMS
+    // =========================================================
 
-    // GET /api/payments
+    // Todas las rooms (DTO)
+    @GetMapping("/rooms")
+    public List<RoomResponseDTO> getAllRooms() {
+        return roomsService.getAllRooms();
+    }
+
+    // Rooms resumen por hotel (para tu pantalla de settings)
+    @GetMapping("/rooms/hotel/{hotelId}")
+    public List<RoomResponseDTO> getRoomsByHotel(@PathVariable UUID hotelId) {
+        return roomsService.getRoomsByHotelPropertyDetailed(hotelId);
+    }
+
+    // Rooms entidad Room por hotel (si lo usas en otro lado)
+    @GetMapping("/hotels/{hotelPropertyId}/rooms")
+    public List<Room> getRoomsByHotelProperty(@PathVariable UUID hotelPropertyId) {
+        return roomsService.getRoomsByHotelProperty(hotelPropertyId);
+    }
+
+    @PostMapping("/rooms/hotel/{hotelId}")
+    public RoomResponseDTO createRoomForHotel(
+            @PathVariable UUID hotelId,
+            @RequestBody CreateRoomRequestDTO body
+    ) {
+        return roomsService.createRoomForHotel(
+                hotelId,
+                body.getTitle(),
+                body.getDescription(),
+                body.getRoomType(),
+                body.getPricePerNight(),
+                body.getBedrooms(),
+                body.getBathrooms(),
+                body.getRoomServiceIds()
+        );
+    }
+
+    @PutMapping("/rooms/{roomId}")
+    public RoomResponseDTO updateRoomForHotel(
+            @PathVariable UUID roomId,
+            @RequestBody CreateRoomRequestDTO body
+    ) {
+        return roomsService.updateRoomForHotel(
+                roomId,
+                body.getHotelPropertyId(),
+                body.getTitle(),
+                body.getDescription(),
+                body.getRoomType(),
+                body.getPricePerNight(),
+                body.getBedrooms(),
+                body.getBathrooms(),
+                body.getRoomServiceIds()
+        );
+    }
+
+    @DeleteMapping("/rooms/{roomId}")
+    public void deleteRoom(@PathVariable UUID roomId) {
+        roomsService.deleteRoomCompletely(roomId);
+    }
+
+    @GetMapping("/rooms/{roomId}/services")
+    public List<Service> getServicesByRoom(@PathVariable UUID roomId) {
+        return roomsService.getServicesByRoom(roomId);
+    }
+
+    @GetMapping("/rooms/{roomId}/availability")
+    public List<AvailabilityDates> getAvailabilityByRoom(@PathVariable UUID roomId) {
+        return roomsService.getAvailabilityByRoom(roomId);
+    }
+
+    // =========================================================
+    //                       PAYMENTS
+    // =========================================================
+
     @GetMapping("/payments")
     public List<Payment> getAllPayments() {
         return paymentsService.getAllPayments();
     }
 
-    // GET /api/payments/{paymentId}
     @GetMapping("/payments/{paymentId}")
     public ResponseEntity<Payment> getPaymentById(@PathVariable UUID paymentId) {
         return paymentsService.getPaymentById(paymentId)
@@ -92,73 +171,68 @@ public class FrontController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET /api/reservations/{reservationId}/payments
     @GetMapping("/reservations/{reservationId}/payments")
     public List<Payment> getPaymentsByReservation(@PathVariable UUID reservationId) {
         return paymentsService.getPaymentsByReservation(reservationId);
     }
 
-    // ==================== RESERVATIONS ====================
+    // =========================================================
+    //                       RESERVATIONS
+    // =========================================================
 
-    // GET /api/reservations
     @GetMapping("/reservations")
-    public List<Reserva> getAllReservations() {
+    public List<ReservationSummaryDTO> getAllReservations() {
         return reservationsService.getAllReservations();
     }
 
-    // GET /api/reservations/{reservationId}
     @GetMapping("/reservations/{reservationId}")
-    public Reserva getReservationById(@PathVariable UUID reservationId) {
-        return reservationsService.getReservationById(reservationId);
+    public ReservationDetailsDTO getReservationById(@PathVariable UUID reservationId) {
+        return reservationsService.getReservationDetails(reservationId);
     }
 
-    // GET /api/rooms/{roomId}/reservations
     @GetMapping("/rooms/{roomId}/reservations")
-    public List<Reserva> getReservationsByRoom(@PathVariable UUID roomId) {
+    public List<ReservationSummaryDTO> getReservationsByRoom(@PathVariable UUID roomId) {
         return reservationsService.getReservationsByRoom(roomId);
     }
 
-    // GET /api/hotels/{hotelPropertyId}/reservations
     @GetMapping("/hotels/{hotelPropertyId}/reservations")
-    public List<Reserva> getReservationsByHotel(@PathVariable UUID hotelPropertyId) {
+    public List<ReservationSummaryDTO> getReservationsByHotel(@PathVariable UUID hotelPropertyId) {
         return reservationsService.getReservationsByHotelProperty(hotelPropertyId);
     }
 
-    // ==================== SETTINGS ====================
+    // =========================================================
+    //                       SETTINGS
+    // =========================================================
 
-    // GET /api/settings
     @GetMapping("/settings")
     public List<Setting> getAllSettings() {
         return settingsService.getAllSettings();
     }
 
-    // GET /api/settings/{settingId}
     @GetMapping("/settings/{settingId}")
     public Setting getSettingById(@PathVariable UUID settingId) {
         return settingsService.getSettingById(settingId);
     }
 
-    // GET /api/settings/key/{key}
     @GetMapping("/settings/key/{key}")
     public Setting getSettingByKey(@PathVariable String key) {
         return settingsService.getSettingByKey(key);
     }
 
-    // ==================== REPORTS ====================
+    // =========================================================
+    //                       REPORTS
+    // =========================================================
 
-    // GET /api/reports
     @GetMapping("/reports")
     public List<Report> getAllReports() {
         return reportsService.getAllReports();
     }
 
-    // GET /api/reports/{reportId}
     @GetMapping("/reports/{reportId}")
     public Report getReportById(@PathVariable UUID reportId) {
         return reportsService.getReportById(reportId);
     }
 
-    // GET /api/reports/range?start=2025-11-01&end=2025-11-30
     @GetMapping("/reports/range")
     public List<Report> getReportsInRange(@RequestParam("start") String start,
                                           @RequestParam("end") String end) {

@@ -1,5 +1,6 @@
 package com.pontimarriot.manejadorDB.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.pontimarriot.manejadorDB.model.Reserva;
@@ -19,7 +20,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, UUID> {
     @Override
     Optional<Reserva> findById(UUID uuid);
 
-    List<Reserva> findByHotelId(UUID hotelId);  // Cambiar de findByHotelID a findByHotelId
-
-    List<Reserva> findByRoomId(UUID roomId);
+    List<Reserva> findAllByOrderByCheckInDesc();
 }
