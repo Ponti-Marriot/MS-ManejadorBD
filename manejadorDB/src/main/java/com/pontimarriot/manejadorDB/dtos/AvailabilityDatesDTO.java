@@ -8,6 +8,7 @@ public record AvailabilityDatesDTO(
         UUID hotelpropertiesrooms_id,
         LocalDate start_date,
         LocalDate finish_date,
-        String created_at
+        String created_at,
+        UUID reservation_id
 ) {
 }

@@ -19,7 +19,7 @@ PUT {{base_url}}/deliberacion
 Content-Type: application/json
 
 {
-	"id_reserva":"34164396-1394-4536-83e0-35adc26f4b99",
+	"id_reserva":"4d8cadad-2cf9-44db-86d8-756ad6eaaff1",
 	"id_transaccion":"b4f6c3a2-5f29-4f78-8c3e-9a8b6c12f4d2",
 	"estado":"CONFIRMADO"
 }
@@ -29,7 +29,7 @@ PUT {{base_url}}/cancelacion
 Content-Type: application/json
 
 {
-  "id_reserva":"34164396-1394-4536-83e0-35adc26f4b99",
+  "id_reserva":"4d8cadad-2cf9-44db-86d8-756ad6eaaff1",
   "id_transaccion":"b4f6c3a2-5f29-4f78-8c3e-9a8b6c12f4d2",
   "cedula_reserva":"1234567890",
   "origen_solicitud":"HOTEL",

@@ -52,30 +52,45 @@ public class ReservaService {
                 req.getId_hotel()
         );
 
+        List<Room> rooms = roomRepository.findByRoomType(req.getCodigo_tipo_habitacion());
+        if (rooms.isEmpty()) {
+            throw new RuntimeException("No se encontró ningún tipo de habitación con el código: " + req.getCodigo_tipo_habitacion());
+        }
+        Room targetRoom = rooms.get(0);
+
         // Calculate number of nights once
         long numeroNoches = calcularNumeroNoches(req.getFecha_checkin(), req.getFecha_checkout());
 
         // Calculate total price for all selected rooms (sum of price_per_night * nights)
         BigDecimal totalPrecio = calcularPrecioTotal(hprDisponibles, req.getFecha_checkin(), req.getFecha_checkout());
 
-        List<AvailabilityDates> newAvailabilityEntries = new ArrayList<>();
-
-        // Convert dates once
+        // Convert dates once using UTC (same as availability calculation)
         LocalDate reqStart = req.getFecha_checkin().toInstant().atZone(ZoneOffset.UTC).toLocalDate();
         LocalDate reqEnd = req.getFecha_checkout().toInstant().atZone(ZoneOffset.UTC).toLocalDate();
 
-        // Create availability blocks for each selected HotelPropertyRoom
+        // Normalize reservation Date fields to UTC start-of-day to avoid timezone shift
+        Date normalizedCheckIn = Date.from(reqStart.atStartOfDay(ZoneOffset.UTC).toInstant());
+        Date normalizedCheckOut = Date.from(reqEnd.atStartOfDay(ZoneOffset.UTC).toInstant());
+
+        // Create and persist the single Reserva for all rooms (so we have reservation id)
+        Reserva reserva = crearReservaParaMultiple(req, targetRoom, totalPrecio, normalizedCheckIn, normalizedCheckOut);
+        Reserva reservaGuardada = reservaRepository.save(reserva);
+
+        // Create availability blocks for each selected HotelPropertyRoom including reservationId
+        List<AvailabilityDates> newAvailabilityEntries = new ArrayList<>();
         for (HotelPropertyRoom hpr : hprDisponibles) {
-            AvailabilityDates ad = new AvailabilityDates(hpr.getId(), reqStart, reqEnd, LocalDate.now().toString());
+            AvailabilityDates ad = new AvailabilityDates(
+                    hpr.getId(),
+                    reqStart,
+                    reqEnd,
+                    LocalDate.now().toString(),
+                    reservaGuardada.getId()
+            );
             newAvailabilityEntries.add(ad);
         }
 
         // Persist availability blocks
         availabilityDatesRepository.saveAll(newAvailabilityEntries);
-
-        // Create a single Reserva for all rooms
-        Reserva reserva = crearReservaParaMultiple(req, hprDisponibles, totalPrecio);
-        Reserva reservaGuardada = reservaRepository.save(reserva);
 
         // Return single-item list (one reservation for all rooms)
         return Collections.singletonList(convertirAResponse(reservaGuardada));
@@ -145,15 +160,15 @@ public class ReservaService {
     }
 
     // Create a single Reserva representing multiple HotelPropertyRoom entries.
-    // The reserva.setRoomId is set to the first HotelPropertyRoom id to preserve schema expectations.
-    private Reserva crearReservaParaMultiple(ReservaRequest req, List<HotelPropertyRoom> hotelPropertyRooms, BigDecimal totalPrice) {
+    private Reserva crearReservaParaMultiple(ReservaRequest req, Room room, BigDecimal totalPrice, Date normalizedCheckIn, Date normalizedCheckOut) {
         Reserva reserva = new Reserva();
         reserva.setGuestID(req.getCedula_reserva());
         reserva.setHotelId(req.getId_hotel());
-        // Keep roomId as the first HotelPropertyRoom id (schema uses single roomId)
-        reserva.setRoomId(hotelPropertyRooms.get(0).getId());
-        reserva.setCheckIn(req.getFecha_checkin());
-        reserva.setCheckOut(req.getFecha_checkout());
+        // Set roomId to the Room id (schema expects single room reference)
+        reserva.setRoomId(room.getId());
+        // Use normalized Date values (UTC start-of-day) to avoid timezone shifts
+        reserva.setCheckIn(normalizedCheckIn);
+        reserva.setCheckOut(normalizedCheckOut);
         reserva.setStatus("PENDIENTE");
         reserva.setCurrency("COP");
 

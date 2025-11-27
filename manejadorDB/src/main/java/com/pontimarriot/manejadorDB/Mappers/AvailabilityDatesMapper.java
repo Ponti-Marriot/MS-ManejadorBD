@@ -17,7 +17,8 @@ public final class AvailabilityDatesMapper {
                 entity.getHotelpropertiesroomsId(),
                 entity.getStartDate(),
                 entity.getFinishDate(),
-                entity.getCreatedAt()
+                entity.getCreatedAt(),
+                entity.getReservationId()
         );
     }
 
@@ -27,7 +28,8 @@ public final class AvailabilityDatesMapper {
                 dto.hotelpropertiesrooms_id(),
                 dto.start_date(),
                 dto.finish_date(),
-                dto.created_at()
+                dto.created_at(),
+                dto.reservation_id()
         );
     }
 

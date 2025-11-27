@@ -23,11 +23,14 @@ public class AvailabilityDates {
     private LocalDate finishDate;
     @Column(name = "created_at")
     private String createdAt;
+    @Column(name = "reservation_id")
+    private UUID reservationId;
 
     public AvailabilityDates() {
     }
 
-    public AvailabilityDates(UUID hotelpropertiesroomsId, LocalDate startDate, LocalDate finishDate, String createdAt) {
+    public AvailabilityDates(UUID hotelpropertiesroomsId, LocalDate startDate, LocalDate finishDate, String createdAt, UUID reservationId) {
+        this.reservationId = reservationId;
         this.hotelpropertiesroomsId = hotelpropertiesroomsId;
         this.startDate = startDate;
         this.finishDate = finishDate;

@@ -1,3 +1,4 @@
+// java
 package com.pontimarriot.manejadorDB.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +8,22 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pontimarriot.manejadorDB.model.Reserva;
 import com.pontimarriot.manejadorDB.model.CancelacionRequest;
 import com.pontimarriot.manejadorDB.model.CancelacionResponse;
+import com.pontimarriot.manejadorDB.model.AvailabilityDates;
 import com.pontimarriot.manejadorDB.repository.ReservaRepository;
+import com.pontimarriot.manejadorDB.repository.AvailabilityDatesRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CancelacionService {
 
     @Autowired
     private ReservaRepository reservaRepository;
+
+    @Autowired
+    private AvailabilityDatesRepository availabilityDatesRepository;
 
     @Transactional
     public CancelacionResponse procesarCancelacion(CancelacionRequest request) {
@@ -29,15 +37,23 @@ public class CancelacionService {
                         "No se encontró la reserva con ID: " + request.getId_reserva()
                 ));
 
+        // 3️⃣ Remove availability blocks associated to the reservation's roomId
+        UUID roomId = reserva.getRoomId();
+        if (roomId != null) {
+            List<AvailabilityDates> bookedDates = availabilityDatesRepository.findByReservationId(reserva.getId());
+            if (bookedDates != null && !bookedDates.isEmpty()) {
+                availabilityDatesRepository.deleteAll(bookedDates);
+            }
+        }
 
-        // 5️⃣ Determinar el estado según el origen
-        String estadoResultante = "APROBADO";
+        // 4️⃣ Determinar el estado según el origen
+        String estadoResultante = determinarEstado(request.getOrigen_solicitud());
 
-        // 6️⃣ Actualizar el estado de la reserva
+        // 5️⃣ Actualizar el estado de la reserva
         reserva.setStatus("CANCELADA");
         Reserva reservaActualizada = reservaRepository.save(reserva);
 
-        // 7️⃣ Crear y retornar la respuesta
+        // 6️⃣ Crear y retornar la respuesta
         return new CancelacionResponse(
                 reservaActualizada.getId(),
                 estadoResultante,
