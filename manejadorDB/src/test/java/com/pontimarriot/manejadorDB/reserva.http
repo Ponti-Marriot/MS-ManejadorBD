@@ -10,8 +10,8 @@ Content-Type: application/json
   "fecha_checkin": "2025-12-01",
   "fecha_checkout": "2025-12-05",
   "cedula_reserva": "1234567880",
-  "num_habitaciones": "8",
-  "num_adultos": "16"
+  "num_habitaciones": "1",
+  "num_adultos": "2"
 }
 
 ###

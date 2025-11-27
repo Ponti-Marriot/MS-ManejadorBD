@@ -1,5 +1,6 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
+import com.pontimarriot.manejadorDB.dtos.HotelCreationRequestDTO;
 import com.pontimarriot.manejadorDB.dtos.HotelPropertyDTO;
 import com.pontimarriot.manejadorDB.service.PropiedadesServices.PropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,18 @@ public class PropertiesController {
         return propertiesService.getAllProperties();
     }
 
+    @GetMapping("/name/{propertyName}")
+    public List<HotelPropertyDTO> getPropertyByName(@PathVariable String propertyName) {
+        return propertiesService.getPropertyByName(propertyName);
+    }
+
+    @GetMapping("/address/{propertyAddress}")
+    public HotelPropertyDTO getPropertyByAddress(@PathVariable String propertyAddress) {
+        return propertiesService.getPropertyByAddress(propertyAddress);
+    }
+
     @PostMapping
-    public HotelPropertyDTO createProperty(@RequestBody HotelPropertyDTO propertyDTO) {
+    public HotelPropertyDTO createProperty(@RequestBody HotelCreationRequestDTO propertyDTO) {
         return propertiesService.createProperty(propertyDTO);
     }
 }

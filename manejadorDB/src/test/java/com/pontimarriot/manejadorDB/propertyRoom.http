@@ -1,7 +1,307 @@
 @base_url = http://localhost:8088/db/reservas/property-rooms
 
 ###
-POST {{base_url}}
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1302708e-8ec8-4f13-9033-aeb77bd6d2e6",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1302708e-8ec8-4f13-9033-aeb77bd6d2e6",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1302708e-8ec8-4f13-9033-aeb77bd6d2e6",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1671c270-e2fa-4e50-a1bd-c1ab92b095c7",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1671c270-e2fa-4e50-a1bd-c1ab92b095c7",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "1671c270-e2fa-4e50-a1bd-c1ab92b095c7",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "2725c068-4383-4f50-8494-fdc5fdfab7ac",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "2725c068-4383-4f50-8494-fdc5fdfab7ac",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "2725c068-4383-4f50-8494-fdc5fdfab7ac",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "44b3778f-12aa-4478-8026-102d4c618094",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "44b3778f-12aa-4478-8026-102d4c618094",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "44b3778f-12aa-4478-8026-102d4c618094",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "5216eb89-6027-4755-99f3-24c948b771f6",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "5216eb89-6027-4755-99f3-24c948b771f6",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "5216eb89-6027-4755-99f3-24c948b771f6",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "599f53f2-5375-47fa-919a-5059cd3ec8c2",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "599f53f2-5375-47fa-919a-5059cd3ec8c2",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "599f53f2-5375-47fa-919a-5059cd3ec8c2",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "5c6c0902-5236-4702-a7e7-8dc266f1eac7",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "5c6c0902-5236-4702-a7e7-8dc266f1eac7",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "5c6c0902-5236-4702-a7e7-8dc266f1eac7",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "618f172c-a72e-4098-aa04-de1d04cc4867",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "618f172c-a72e-4098-aa04-de1d04cc4867",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "618f172c-a72e-4098-aa04-de1d04cc4867",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "66199706-6267-4146-8563-bd2606bca95f",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
 Content-Type: application/json
 
 {
@@ -9,5 +309,629 @@ Content-Type: application/json
   "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
   "bedrooms": 1,
   "bathrooms": 1,
-  "price_per_night": 450000
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "66199706-6267-4146-8563-bd2606bca95f",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "68baf2f9-e1b2-41b8-9569-229761569923",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "68baf2f9-e1b2-41b8-9569-229761569923",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "68baf2f9-e1b2-41b8-9569-229761569923",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "711c40cc-ce5e-406d-9c16-83a93d3bec09",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "711c40cc-ce5e-406d-9c16-83a93d3bec09",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "711c40cc-ce5e-406d-9c16-83a93d3bec09",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "763e5d7e-6bbd-455e-a1c9-6e9f4abe7053",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "763e5d7e-6bbd-455e-a1c9-6e9f4abe7053",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "763e5d7e-6bbd-455e-a1c9-6e9f4abe7053",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7b1d7919-4c96-42ef-85de-5773a2d4abbe",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7b1d7919-4c96-42ef-85de-5773a2d4abbe",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7b1d7919-4c96-42ef-85de-5773a2d4abbe",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7c846d7b-f672-44e5-9ffe-cea60441f6e2",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7c846d7b-f672-44e5-9ffe-cea60441f6e2",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7c846d7b-f672-44e5-9ffe-cea60441f6e2",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7fc33a2f-bf12-4070-bf99-6e6bae09575c",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7fc33a2f-bf12-4070-bf99-6e6bae09575c",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "7fc33a2f-bf12-4070-bf99-6e6bae09575c",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "81e16796-bd79-419e-9955-2039cecc3fc2",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "81e16796-bd79-419e-9955-2039cecc3fc2",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "81e16796-bd79-419e-9955-2039cecc3fc2",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "86750a33-7c7c-4111-8148-4ad2feea7d7c",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "86750a33-7c7c-4111-8148-4ad2feea7d7c",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "86750a33-7c7c-4111-8148-4ad2feea7d7c",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "88d5fe35-bcbc-4a59-977a-fed77bbcf7df",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "88d5fe35-bcbc-4a59-977a-fed77bbcf7df",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "88d5fe35-bcbc-4a59-977a-fed77bbcf7df",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "9c57c5fc-f3fa-4719-8d54-13bfa7a353d7",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "9c57c5fc-f3fa-4719-8d54-13bfa7a353d7",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "9c57c5fc-f3fa-4719-8d54-13bfa7a353d7",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "9f4ad5a1-d1a8-45a7-84b5-eeaaffc836e3",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "9f4ad5a1-d1a8-45a7-84b5-eeaaffc836e3",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "9f4ad5a1-d1a8-45a7-84b5-eeaaffc836e3",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "a012e7ea-1aa6-4a0f-99b7-99740462b9df",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "a012e7ea-1aa6-4a0f-99b7-99740462b9df",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "a012e7ea-1aa6-4a0f-99b7-99740462b9df",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "a32ab199-4381-4d33-9c61-590b323e6e92",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "a32ab199-4381-4d33-9c61-590b323e6e92",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "a32ab199-4381-4d33-9c61-590b323e6e92",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "b6a209be-ad62-4005-b303-313112137c7e",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "b6a209be-ad62-4005-b303-313112137c7e",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "b6a209be-ad62-4005-b303-313112137c7e",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "ce41c03c-f500-4ae8-9f35-505cca6e54e6",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "ce41c03c-f500-4ae8-9f35-505cca6e54e6",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "ce41c03c-f500-4ae8-9f35-505cca6e54e6",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "e0f85dbe-256b-4472-a0d4-60c5e1fd428f",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "e0f85dbe-256b-4472-a0d4-60c5e1fd428f",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "e0f85dbe-256b-4472-a0d4-60c5e1fd428f",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "e35dc70d-1e78-432a-93ca-e9b001f84f23",
+  "room_id": "1da879fb-fa74-406c-828f-75ecca7e2bbc",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 340000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "e35dc70d-1e78-432a-93ca-e9b001f84f23",
+  "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "price_per_night": 400000
+}
+
+###
+POST http://localhost:8088/db/reservas/property-rooms
+Content-Type: application/json
+
+{
+  "hotel_property_id": "e35dc70d-1e78-432a-93ca-e9b001f84f23",
+  "room_id": "9968cd68-a149-4b5f-a8c4-439ba9b56811",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "price_per_night": 480000
 }
