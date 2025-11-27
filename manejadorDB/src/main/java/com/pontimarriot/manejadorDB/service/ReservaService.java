@@ -9,11 +9,16 @@ import com.pontimarriot.manejadorDB.model.ReservaRequest;
 import com.pontimarriot.manejadorDB.model.ReservaResponse;
 import com.pontimarriot.manejadorDB.model.Room;
 import com.pontimarriot.manejadorDB.model.HotelPropertyRoom;
+import com.pontimarriot.manejadorDB.model.AvailabilityDates;
 import com.pontimarriot.manejadorDB.repository.ReservaRepository;
 import com.pontimarriot.manejadorDB.repository.RoomRepository;
 import com.pontimarriot.manejadorDB.repository.HotelPropertyRoomRepository;
+import com.pontimarriot.manejadorDB.repository.AvailabilityDatesRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -30,32 +35,50 @@ public class ReservaService {
     @Autowired
     private HotelPropertyRoomRepository hotelPropertyRoomRepository;
 
+    @Autowired
+    private AvailabilityDatesRepository availabilityDatesRepository;
+
     @Transactional
     public List<ReservaResponse> guardarReserva(ReservaRequest req) {
 
         validarFechas(req.getFecha_checkin(), req.getFecha_checkout());
 
-        List<Room> roomsDisponibles = obtenerHabitacionesDisponibles(
+        // Get available HotelPropertyRoom entries (will throw if not enough)
+        List<HotelPropertyRoom> hprDisponibles = obtenerHabitacionesDisponibles(
                 req.getCodigo_tipo_habitacion(),
                 req.getFecha_checkin(),
                 req.getFecha_checkout(),
-                req.getNum_habitaciones()
+                req.getNum_habitaciones(),
+                req.getId_hotel()
         );
 
-        List<Reserva> reservasCreadas = new ArrayList<>();
+        // Calculate number of nights once
+        long numeroNoches = calcularNumeroNoches(req.getFecha_checkin(), req.getFecha_checkout());
 
-        for (int i = 0; i < req.getNum_habitaciones(); i++) {
-            Room room = roomsDisponibles.get(i);
-            Reserva reserva = crearReserva(req, room);
-            reservasCreadas.add(reserva);
+        // Calculate total price for all selected rooms (sum of price_per_night * nights)
+        BigDecimal totalPrecio = calcularPrecioTotal(hprDisponibles, req.getFecha_checkin(), req.getFecha_checkout());
+
+        List<AvailabilityDates> newAvailabilityEntries = new ArrayList<>();
+
+        // Convert dates once
+        LocalDate reqStart = req.getFecha_checkin().toInstant().atZone(ZoneOffset.UTC).toLocalDate();
+        LocalDate reqEnd = req.getFecha_checkout().toInstant().atZone(ZoneOffset.UTC).toLocalDate();
+
+        // Create availability blocks for each selected HotelPropertyRoom
+        for (HotelPropertyRoom hpr : hprDisponibles) {
+            AvailabilityDates ad = new AvailabilityDates(hpr.getId(), reqStart, reqEnd, LocalDate.now().toString());
+            newAvailabilityEntries.add(ad);
         }
-        // Guardar todas las reservas
-        List<Reserva> reservasGuardadas = reservaRepository.saveAll(reservasCreadas);
 
-        // Convertir a ReservaResponse
-        return reservasGuardadas.stream()
-                .map(this::convertirAResponse)
-                .collect(Collectors.toList());
+        // Persist availability blocks
+        availabilityDatesRepository.saveAll(newAvailabilityEntries);
+
+        // Create a single Reserva for all rooms
+        Reserva reserva = crearReservaParaMultiple(req, hprDisponibles, totalPrecio);
+        Reserva reservaGuardada = reservaRepository.save(reserva);
+
+        // Return single-item list (one reservation for all rooms)
+        return Collections.singletonList(convertirAResponse(reservaGuardada));
     }
 
     private void validarFechas(Date checkIn, Date checkOut) {
@@ -64,65 +87,103 @@ public class ReservaService {
         }
     }
 
-    private List<Room> obtenerHabitacionesDisponibles(String roomType, Date checkIn, Date checkOut, int cantidad) {
-        List<Room> todasLasRooms = roomRepository.findByRoomType(roomType);
-        List<Room> disponibles = new ArrayList<>();
+    /**
+     * Finds HotelPropertyRoom entries available for the given hotel and room type code.
+     * Returns exactly 'cantidad' items or throws if not enough available.
+     */
+    private List<HotelPropertyRoom> obtenerHabitacionesDisponibles(String roomTypeCode, Date checkIn, Date checkOut, int cantidad, UUID hotelId) {
+        // 1) Find the unique Room by roomType code
+        List<Room> rooms = roomRepository.findByRoomType(roomTypeCode);
+        if (rooms.isEmpty()) {
+            throw new RuntimeException("No se encontró ningún tipo de habitación con el código: " + roomTypeCode);
+        }
+        Room targetRoom = rooms.get(0); // unique by design
 
-        for (Room room : todasLasRooms) {
-            List<Reserva> reservasExistentes = reservaRepository
-                    .findByRoomIdAndCheckInLessThanEqualAndCheckOutGreaterThanEqual(
-                            room.getId(), checkOut, checkIn
-                    );
+        // Convert request dates to LocalDate for comparison with AvailabilityDates
+        LocalDate reqStart = checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate reqEnd = checkOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            if (reservasExistentes.isEmpty()) {
-                disponibles.add(room);
+        // 2) Get all HotelPropertyRoom entries for the hotel
+        List<HotelPropertyRoom> hotelRooms = hotelPropertyRoomRepository.findByHotelPropertyId(hotelId);
+
+        // 3) Filter those that reference the target Room id
+        List<HotelPropertyRoom> candidateHPR = hotelRooms.stream()
+                .filter(hpr -> hpr.getRoomId().equals(targetRoom.getId()))
+                .collect(Collectors.toList());
+
+        List<HotelPropertyRoom> disponibles = new ArrayList<>();
+
+        // 4) For each candidate, check AvailabilityDates for overlaps
+        for (HotelPropertyRoom hpr : candidateHPR) {
+            List<AvailabilityDates> existing = availabilityDatesRepository.findByHotelpropertiesroomsId(hpr.getId());
+
+            boolean overlaps = false;
+            for (AvailabilityDates ad : existing) {
+                LocalDate adStart = ad.getStartDate();
+                LocalDate adEnd = ad.getFinishDate();
+
+                // Overlap check (inclusive)
+                if (!(reqEnd.isBefore(adStart) || reqStart.isAfter(adEnd))) {
+                    overlaps = true;
+                    break;
+                }
+            }
+
+            // 5) If no overlap, it's available
+            if (!overlaps) {
+                disponibles.add(hpr);
                 if (disponibles.size() == cantidad) break;
             }
         }
 
         if (disponibles.size() < cantidad) {
             throw new RuntimeException("Solo hay " + disponibles.size() +
-                    " habitaciones disponibles del tipo: " + roomType);
+                    " habitaciones disponibles del tipo: " + roomTypeCode);
         }
 
         return disponibles;
     }
 
-    private Reserva crearReserva(ReservaRequest req, Room room) {
+    // Create a single Reserva representing multiple HotelPropertyRoom entries.
+    // The reserva.setRoomId is set to the first HotelPropertyRoom id to preserve schema expectations.
+    private Reserva crearReservaParaMultiple(ReservaRequest req, List<HotelPropertyRoom> hotelPropertyRooms, BigDecimal totalPrice) {
         Reserva reserva = new Reserva();
         reserva.setGuestID(req.getCedula_reserva());
         reserva.setHotelId(req.getId_hotel());
-        reserva.setRoomId(room.getId());
+        // Keep roomId as the first HotelPropertyRoom id (schema uses single roomId)
+        reserva.setRoomId(hotelPropertyRooms.get(0).getId());
         reserva.setCheckIn(req.getFecha_checkin());
         reserva.setCheckOut(req.getFecha_checkout());
         reserva.setStatus("PENDIENTE");
         reserva.setCurrency("COP");
 
-        // Calcular el precio total
-        BigDecimal precioTotal = calcularPrecioTotal(req.getId_hotel(), room.getId(), req.getFecha_checkin(), req.getFecha_checkout());
-        reserva.setPrice(precioTotal);
+        // Total price for all rooms (already sum(price_per_night) * nights)
+        reserva.setPrice(totalPrice);
 
         return reserva;
     }
 
-    private BigDecimal calcularPrecioTotal(UUID hotelId, UUID roomId, Date checkIn, Date checkOut) {
-        // Buscar el precio por noche
-        HotelPropertyRoom hotelRoom = hotelPropertyRoomRepository
-                .findByHotelPropertyIdAndRoomId(hotelId, roomId)
-                .orElseThrow(() -> new RuntimeException("No se encontró precio para esta habitación en el hotel"));
+    /**
+     * Calculate total price for a list of HotelPropertyRoom entries:
+     * sum of each room's price_per_night, then multiply by number of nights.
+     */
+    private BigDecimal calcularPrecioTotal(List<HotelPropertyRoom> hotelPropertyRooms, Date checkIn, Date checkOut) {
+        long numeroNoches = calcularNumeroNoches(checkIn, checkOut);
 
-        BigDecimal precioPorNoche = BigDecimal.valueOf(hotelRoom.getPricePerNight());
+        double sumPrecioPorNoche = hotelPropertyRooms.stream()
+                .mapToDouble(HotelPropertyRoom::getPricePerNight)
+                .sum();
 
-        // Calcular número de noches
+        return BigDecimal.valueOf(sumPrecioPorNoche).multiply(BigDecimal.valueOf(numeroNoches));
+    }
+
+    private long calcularNumeroNoches(Date checkIn, Date checkOut) {
         long diferenciaMilis = checkOut.getTime() - checkIn.getTime();
         long numeroNoches = TimeUnit.DAYS.convert(diferenciaMilis, TimeUnit.MILLISECONDS);
-
         if (numeroNoches <= 0) {
             throw new IllegalArgumentException("Debe haber al menos una noche de diferencia");
         }
-
-        // Precio total = precio por noche * número de noches
-        return precioPorNoche.multiply(BigDecimal.valueOf(numeroNoches));
+        return numeroNoches;
     }
 
     private ReservaResponse convertirAResponse(Reserva reserva) {
@@ -130,7 +191,7 @@ public class ReservaService {
         response.setId_reserva(reserva.getId());
         response.setPrecio_total(reserva.getPrice());
         response.setEstado(reserva.getStatus());
-        response.setObservaciones(null); // Por defecto null ya que no es obligatorio
+        response.setObservaciones(null);
         return response;
     }
 }

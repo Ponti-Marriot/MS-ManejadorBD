@@ -5,9 +5,9 @@ POST {{base_url}}
 Content-Type: application/json
 
 {
-  "hotel_property_id": "1302708e-8ec8-4f13-9033-aeb77bd6d2e6",
+  "hotel_property_id": "66199706-6267-4146-8563-bd2606bca95f",
   "room_id": "caa5f8a2-eb5c-47ef-a423-4777fe0a24c3",
   "bedrooms": 1,
   "bathrooms": 1,
-  "price_per_night": 75.50
+  "price_per_night": 450000
 }

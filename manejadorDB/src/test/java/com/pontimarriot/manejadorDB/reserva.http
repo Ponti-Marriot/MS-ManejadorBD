@@ -5,13 +5,13 @@ POST {{base_url}}
 Content-Type: application/json
 
 {
-  "id_hotel": "2725c068-4383-4f50-8494-fdc5fdfab7ac",
+  "id_hotel": "66199706-6267-4146-8563-bd2606bca95f",
   "codigo_tipo_habitacion": "doble",
   "fecha_checkin": "2025-12-01",
   "fecha_checkout": "2025-12-05",
-  "cedula_reserva": "1234567890",
-  "num_habitaciones": "1",
-  "num_adultos": "2"
+  "cedula_reserva": "1234567880",
+  "num_habitaciones": "8",
+  "num_adultos": "16"
 }
 
 ###

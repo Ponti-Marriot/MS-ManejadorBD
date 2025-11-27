@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface HotelPropertyRoomRepository extends JpaRepository<HotelPropertyRoom, UUID> {
 
     // Buscar la relación entre hotel y habitación
-    Optional<HotelPropertyRoom> findByHotelPropertyIdAndRoomId(UUID hotelPropertyId, UUID roomId);
+    List<HotelPropertyRoom> findByHotelPropertyIdAndRoomId(UUID hotelPropertyId, UUID roomId);
 
     List<HotelPropertyRoom> findByHotelPropertyId(UUID hotelPropertyId);
 
