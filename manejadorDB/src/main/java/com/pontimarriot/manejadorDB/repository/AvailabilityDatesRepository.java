@@ -14,4 +14,6 @@ public interface AvailabilityDatesRepository extends JpaRepository<AvailabilityD
     List<AvailabilityDates> findByHotelpropertiesroomsId(UUID hotelPropertyRoomId);
 
     List<AvailabilityDates> findByReservationId(UUID reservationId);
+
+    void deleteByReservationId(UUID reservationId);
 }

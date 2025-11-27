@@ -1,6 +1,7 @@
 package com.pontimarriot.manejadorDB.controller.PropiedadesControllers;
 
 import com.pontimarriot.manejadorDB.dtos.HotelPropertyRoomDTO;
+import com.pontimarriot.manejadorDB.dtos.RoomCreationRequestDTO;
 import com.pontimarriot.manejadorDB.service.PropiedadesServices.PropertyRoomsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class PropertyRoomsController {
     PropertyRoomsService propertyRoomsService;
 
     @PostMapping
-    public HotelPropertyRoomDTO addRoomToProperty(@RequestBody HotelPropertyRoomDTO hotelPropertyRoomDTO) {
-        return propertyRoomsService.addRoomToProperty(hotelPropertyRoomDTO);
+    public HotelPropertyRoomDTO addRoomToProperty(@RequestBody RoomCreationRequestDTO roomCreationRequestDTO) {
+        return propertyRoomsService.addRoomToProperty(roomCreationRequestDTO);
     }
 }

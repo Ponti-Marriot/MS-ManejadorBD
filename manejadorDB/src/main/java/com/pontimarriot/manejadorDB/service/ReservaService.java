@@ -38,6 +38,9 @@ public class ReservaService {
     @Autowired
     private AvailabilityDatesRepository availabilityDatesRepository;
 
+    @Autowired
+    private ReservationExpiryScheduler reservationExpiryScheduler;
+
     @Transactional
     public List<ReservaResponse> guardarReserva(ReservaRequest req) {
 
@@ -52,11 +55,8 @@ public class ReservaService {
                 req.getId_hotel()
         );
 
-        List<Room> rooms = roomRepository.findByRoomType(req.getCodigo_tipo_habitacion());
-        if (rooms.isEmpty()) {
-            throw new RuntimeException("No se encontró ningún tipo de habitación con el código: " + req.getCodigo_tipo_habitacion());
-        }
-        Room targetRoom = rooms.get(0);
+        Room targetRoom = roomRepository.findByRoomType(req.getCodigo_tipo_habitacion())
+                .orElseThrow(() -> new RuntimeException("No se encontró ningún tipo de habitación con el código: " + req.getCodigo_tipo_habitacion()));
 
         // Calculate number of nights once
         long numeroNoches = calcularNumeroNoches(req.getFecha_checkin(), req.getFecha_checkout());
@@ -91,6 +91,8 @@ public class ReservaService {
 
         // Persist availability blocks
         availabilityDatesRepository.saveAll(newAvailabilityEntries);
+        // Schedule reservation expiry check in 10 minutes
+        reservationExpiryScheduler.scheduleExpiry(reservaGuardada.getId(), 10);
 
         // Return single-item list (one reservation for all rooms)
         return Collections.singletonList(convertirAResponse(reservaGuardada));
@@ -108,11 +110,8 @@ public class ReservaService {
      */
     private List<HotelPropertyRoom> obtenerHabitacionesDisponibles(String roomTypeCode, Date checkIn, Date checkOut, int cantidad, UUID hotelId) {
         // 1) Find the unique Room by roomType code
-        List<Room> rooms = roomRepository.findByRoomType(roomTypeCode);
-        if (rooms.isEmpty()) {
-            throw new RuntimeException("No se encontró ningún tipo de habitación con el código: " + roomTypeCode);
-        }
-        Room targetRoom = rooms.get(0); // unique by design
+        Room targetRoom = roomRepository.findByRoomType(roomTypeCode)
+                .orElseThrow(() -> new RuntimeException("No se encontró ningún tipo de habitación con el código: " + roomTypeCode));;
 
         // Convert request dates to LocalDate for comparison with AvailabilityDates
         LocalDate reqStart = checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
